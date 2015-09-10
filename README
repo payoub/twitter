@@ -1,0 +1,5 @@
+Frequency Distribution of User Tweets over 24 hours
+
+This application renders the last 500 tweets of a user as a histogram showing what hour of the day that user is most likely to submit a tweet.
+
+
