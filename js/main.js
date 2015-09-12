@@ -6,7 +6,13 @@ google.load('visualization', '1', {'packages':['corechart']});
 //Set up event handlers
 jQuery(document).ready( function( $ ) {
 
-
+    //Loading image handlers
+    $(this).bind('ajaxStart', function() {
+      $('#chart_div').html('<div class="spinner"> <div class="double-bounce1"></div> <div class="double-bounce2"></div> </div>');
+    }).bind('ajaxStop', function() {
+      $('.spinner').remove();
+    });
+    
     //Form submit handler
     $( "#form-submit" ).click( function() {
 
@@ -14,6 +20,8 @@ jQuery(document).ready( function( $ ) {
 
         //hide any lingering errors
         $( "#alerts" ).hide();
+        //hide any lingering charts
+        $( "#chart_div").html("");
 
         if ( usrinput.length > 0 ) {
 
@@ -24,18 +32,27 @@ jQuery(document).ready( function( $ ) {
             });
 
             request.done( function( msg ) {
-                console.log( msg );
+
                 if( msg.status == true ){
-                    console.log('ajax completed successfully:'+msg.payload);
+
                     var data = new google.visualization.arrayToDataTable( msg.payload );
                     var chart = new google.visualization.Histogram( document.getElementById("chart_div") );
+
                     var chart_width = $("#chart_div").width();
-                    var chart_height = (chart_width) / 2;
-                    chart.draw( data,
-                                { width: chart_width , height: chart_height } );
+                    var chart_height = (chart_width) / 2; //Dynamically generate height so chart is always a rectangle
+
+                    chart.draw( data, { 
+                        width: chart_width,
+                        height: chart_height,
+                        title: 'Distribution Of Tweets Over Time',
+                        legend: {position: 'bottom', alignment: 'end'},
+                        vAxis: {title: 'Number of tweets'},
+                        hAxis: {title: 'Time (24h)'},
+                        animation: { duration: 1000, easing: 'out' }
+                    });
+
                 } else {
                     $( "#alerts" ).html( msg.payload ).fadeIn();
-                    console.log('ajax completed with errors: '+msg.payload);
                 }
     
             });      
