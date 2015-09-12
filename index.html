@@ -2,12 +2,36 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Tweet Frequency Distribution</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Tweet Frequency Distribution</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     </head>
     <body>
-        <h1>Tweet Frequency Distribution</h1>
-        <!-- Todo -->
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 page-header">
+                    <h1>Tweet Frequency Distribution</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-xs-12">
+                    <div class="input-group">
+                        <label for="screen_name" class="sr-only">Twitter Screen Name</label>
+                        <input type="text" id="screen_name" name="screen_name" class="form-control" value="twitterapi" />
+                        <span class="input-group-btn">
+                            <input type="submit" name="submit" class="btn btn-primary" />
+                        </span>
+                    </div>
+                    <hr>
+                    <blockquote><p>Enter the twitter screen name to calculate the frequency distribution of that users last 500 tweets. <p> This will result in a histogram detailing what hour of the day a user is most likely to tweet.</p> </blockquote>
+                </div>
+                <div class="col-sm-8 col-xs-12">
+                    <div class="chart_div" id="chart_div"></div>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>
