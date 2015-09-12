@@ -64,10 +64,21 @@ try {
   }
 
   # Transform data into histogram input
-  //TODO
+  
+  $hour_start_pos = 11; // string position of hour digits
+  $hour_length = 2; // 24 hour time so hour is represented in 2 digits
+  $histogram_data = array( array("Tweet","Hour Posted") );
+
+  foreach( $data as $tweet ) {
+
+    $hour_created = substr( $tweet->created_at, $hour_start_pos, $hour_length );
+    $text = $tweet->text;
+    array_push( $histogram_data, array( $text, intval( $hour_created ) ) );
+
+  }
 
   # Success, return data to browser
-  exit ( json_encode( array( 'status' => true, 'payload' => $data) ) );
+  exit ( json_encode( array( 'status' => true, 'payload' => $histogram_data) ) );
   
 } catch ( Exception $e ) {
 
