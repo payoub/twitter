@@ -21,7 +21,12 @@ return array(
         /**
          *  Specifies the number of tweets to retrieve from a users timeline
          */
-        'tweets_to_retrieve'  => 500
+        'tweets_to_retrieve'  => 500,
+
+        /**
+         *  Defines the base URL to use for twitter API calls
+         */
+        'base_url'  =>  'https://api.twitter.com/1.1'
 );
 
 
