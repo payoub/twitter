@@ -13,7 +13,7 @@ $auth = $config['auth'];
 * Checks if an error has been returned from the twitter api
 */
 
-function request_error_exists( $data ) {
+function request_error_exists( &$data ) {
 
   $errors = isset( $data->errors );
   $page_not_found_code = 34; //If we cannot find the page we assume user does not exist
@@ -30,7 +30,7 @@ function request_error_exists( $data ) {
 * Manipulates response data into histogram format (Tweet text followed by hour posted)
 */
 
-function process_data_for_histogram( $data ) {
+function process_data_for_histogram( &$data ) {
 
   $hour_start_pos = 11; // string position of hour digits
   $hour_length = 2; // 24 hour time so hour is represented in 2 digits
