@@ -46,15 +46,17 @@ jQuery(document).ready( function( $ ) {
                     var chart_width = $("#chart_div").width();
                     var chart_height = (chart_width) / 2; //Dynamically generate height so chart is always a rectangle
 
-                    chart.draw( data, { 
+                    var options = {
                         width: chart_width,
                         height: chart_height,
                         title: 'Distribution Of Tweets Over Time',
                         legend: {position: 'bottom', alignment: 'end'},
                         vAxis: {title: 'Number of tweets'},
                         hAxis: {title: 'Time (24h)'},
-                        animation: { duration: 1000, easing: 'out' }
-                    });
+                        colors: ['#337ab7']
+                    };
+ 
+                    chart.draw( data, options);
 
                 } else {
                     $( "#alerts" ).html( msg.payload ).fadeIn();
