@@ -10,25 +10,18 @@ $config = require('../conf/twitter.php');
 $auth = $config['auth'];
 
 /**
-* Checks if a screen name exists on the twitter platform
-*/
-
-function check_screen_name_exists( $name ) {
-  //TODO
-  $name_found = true;
-  if( $name_found === false ) {
-    throw new Exception('Screen name does not exist');
-  }
-}
-
-/**
 * Checks if an error has been returned from the twitter api
 */
 
 function request_error_exists( $data ) {
 
-  if( isset( $data->errors ) ){
-    throw new Exception('Twitter responded - '.$data->errors[0]->message);
+  $errors = isset( $data->errors );
+  $page_not_found_code = 34; //If we cannot find the page we assume user does not exist
+
+  if( $errors && $data->errors[0]->code == $page_not_found_code ){
+    throw new Exception('Screen name not found');
+  } elseif ( $errors ) {
+    throw new Exception('There was a problem completing the request. '.$data->errors[0]->message);
   }
 
 }
@@ -38,9 +31,6 @@ try {
   # Sanitise input
   $sanitise_pattern = '/[^A-Za-z0-9_]/';
   $screen_name = preg_replace($sanitise_pattern,'',$_REQUEST['screen_name']);
-  
-  # Check if screen name exists
-  check_screen_name_exists( $screen_name );
   
   # Create request uri to send to twitter api.
   $api_url = $config['base_url'] . "/statuses/user_timeline.json";
