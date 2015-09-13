@@ -12,6 +12,11 @@ jQuery(document).ready( function( $ ) {
     }).bind('ajaxStop', function() {
       $('.spinner').remove();
     });
+
+    //Enter key handler for text box, enter key is code 13
+    $( "#screen_name" ).keypress( function( e ) {
+      if ( e.which == 13 ) { $( "#form-submit" ).click(); } 
+    });
     
     //Form submit handler
     $( "#form-submit" ).click( function() {
@@ -58,7 +63,7 @@ jQuery(document).ready( function( $ ) {
             });      
 
         } else {
-            $( "#alerts" ).html('Please enter a valid Twitter Screen Name').fadeIn();
+            $( "#alerts" ).html('Error: Please enter a valid Twitter Screen Name').fadeIn();
         }
 
 
